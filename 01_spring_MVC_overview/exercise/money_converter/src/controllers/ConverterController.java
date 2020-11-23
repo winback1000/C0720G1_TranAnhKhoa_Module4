@@ -13,10 +13,10 @@ public class ConverterController {
     @Autowired
     private IConverter usdToVnd;
     @GetMapping({"","/converter"})
-    public String convert(@RequestParam String amount, @RequestParam String unit, Model model) {
+    public String convert(@RequestParam double amount, @RequestParam String unit, Model model) {
         model.addAttribute("amount", amount );
         if (unit.equals("USD")){
-            model.addAttribute("result", usdToVnd.convert(Double.parseDouble(amount)));
+            model.addAttribute("result", usdToVnd.convert(amount));
         } else {
             model.addAttribute("result", null);
         }
