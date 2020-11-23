@@ -32,7 +32,7 @@
           <a class="nav-link" href="/home/add">Add Vocabulary</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0" method="get" action="/home/search">
+      <form class="form-inline my-2 my-lg-0" method="post" action="/home/search">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchData">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Look Up a Word</button>
       </form>
