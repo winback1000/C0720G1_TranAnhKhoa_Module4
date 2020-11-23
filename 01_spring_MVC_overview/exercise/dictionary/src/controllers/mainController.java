@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import service.WordMeaningService;
 
 @Controller
-
+@EnableWebMvc
 public class mainController {
     @Autowired
     private WordMeaningService wordMeaningService;
@@ -21,6 +22,7 @@ public class mainController {
 //        model.addAttribute("addingStatus",false);
         return "home";
     }
+
     @RequestMapping(value = "/home/search", method = RequestMethod.POST)
     String lookUpWord(@RequestParam String searchData, Model model) {
         model.addAttribute("wordList", wordMeaningService.lookUp(searchData));

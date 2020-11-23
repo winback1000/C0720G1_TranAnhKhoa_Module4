@@ -1,6 +1,6 @@
 package service;
 
-import DAO.wordMeaning.WordMeaningDAO;
+import respository.wordMeaning.WordMeaningDAO;
 import model.WordMeaning;
 import org.springframework.stereotype.Service;
 
