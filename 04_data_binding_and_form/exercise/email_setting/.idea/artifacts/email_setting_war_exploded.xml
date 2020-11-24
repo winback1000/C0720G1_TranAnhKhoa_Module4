@@ -1,11 +1,11 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="form_data_binding:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/form_data_binding_war_exploded</output-path>
+  <artifact type="exploded-war" name="email_setting:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/email_setting_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="form_data_binding/web/Web" />
+      <element id="javaee-facet-resources" facet="email_setting/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="form_data_binding" />
+          <element id="module-output" name="email_setting" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Spring-5.2.3.RELEASE" />
