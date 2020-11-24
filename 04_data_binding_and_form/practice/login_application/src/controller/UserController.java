@@ -12,7 +12,7 @@ public class UserController {
 
     @GetMapping({"/home","","/"})
     public ModelAndView home(){
-        ModelAndView modelAndView = new ModelAndView("home", "login", new Login());
+        ModelAndView modelAndView = new ModelAndView("home", "login",new Login());
         return modelAndView;
     }
 
