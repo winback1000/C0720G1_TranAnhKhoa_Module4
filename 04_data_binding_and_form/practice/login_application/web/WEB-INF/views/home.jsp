@@ -30,7 +30,10 @@
             </tr>
             <tr>
                 <td></td>
-                <td><form:button>Login</form:button></td>
+                <td>
+                    <form:button>Login</form:button>
+                    <a type="button" href="/cancel">Cancel</a>
+                </td>
             </tr>
         </table>
     </fieldset>
