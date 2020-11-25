@@ -18,6 +18,7 @@
 <table id = "customers">
     <thead>
     <tr>
+        <th>No.</th>
         <th>Name</th>
         <th>Email</th>
         <th>Address</th>
@@ -28,6 +29,7 @@
     </thead>
     <tbody>
     <tr th:each="row,rowStat : ${customers}">
+        <td th:text="${rowStat.index+1}"></td>
         <td th:text="${row.getName()}"></td>
         <td th:text="${row.getEmail()}"></td>
         <td th:text="${row.getAddress()}"></td>
