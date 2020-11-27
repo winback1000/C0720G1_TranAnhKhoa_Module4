@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:replace="/layout :: navbar">
+</nav>
+
+<form th:action="@{/product/update}" th:object="${product}"
+      method="POST" novalidate="novalidate">
+    <input type="hidden" th:field="*{id}">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Product Name</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Product Name" th:field="*{name}">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Manufacturer</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Manufacturer" th:field="*{manufacturer}">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Price</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Price" th:field="*{price}">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">In Stock</span>
+        </div>
+        <input type="text" class="form-control" placeholder="In Stock" th:field="*{stock}">
+    </div>
+
+    <button type="submit" class="btn btn-outline-success">Save</button>
+    <a type="button" href="/home" class="btn btn-outline-light">Cancel</a>
+</form>
