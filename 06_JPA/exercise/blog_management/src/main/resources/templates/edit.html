@@ -20,7 +20,11 @@
         </div>
         <div class="form-group">
             <label for="content">Content</label>
-            <textarea class="form-control" id="content" rows="20" th:field="*{content}"></textarea>
+            <textarea class="form-control" id="content" rows="14" th:field="*{content}"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Image</label>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1" th:field="*{image}">
         </div>
         <button type="submit" class="btn btn-outline-primary">Save</button>
         <a href="/" class="btn btn-outline-warning">Cancel</a>

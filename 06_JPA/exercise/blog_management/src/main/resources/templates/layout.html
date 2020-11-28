@@ -7,16 +7,30 @@
 
     <title>Blog Management</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<style>
+<style th:inline="text">
     .content {
-        width: 1500px;
+        width: 80%;
         position: relative;
         left: 100px;
+        background-color: white;
+        opacity: 0.8;
+        border-radius: 10px;
     }
     .content pre{
+        margin: 0 10px;
         text-align: justify;
         text-indent: 40px;
         white-space: pre-wrap;
+    }
+    body {
+        background-image: url("/images/bg.jpg");
+        background-size: 100%;
+        background-repeat: repeat-y;
+    }
+    img {
+        max-height:80px;
+        width:80px;
+        height:auto;
     }
 </style>
 

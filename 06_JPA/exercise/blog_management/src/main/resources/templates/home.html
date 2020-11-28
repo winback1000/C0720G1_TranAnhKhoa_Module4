@@ -12,6 +12,7 @@
     <thead class="thead-dark">
     <tr>
         <th>No.</th>
+        <th>Image</th>
         <th>Title</th>
         <th>Content</th>
         <th>Write Date</th>
@@ -22,6 +23,7 @@
     <tbody>
     <tr th:each="row,rowStat : ${blogList}">
         <td th:text="${rowStat.index+1}"></td>
+        <td><a th:href="@{/blog/{id}/view(id=${row.getId()})}"><img th:src="@{'images/'+${row.image}}" class="img-thumbnail"></a> </td>
         <td><a th:href="@{/blog/{id}/view(id=${row.getId()})}" th:text="${row.getTitle()}"></a></td>
         <td th:text="${row.getShortWord()}"></td>
         <td th:text="${row.getPostDate()}"></td>

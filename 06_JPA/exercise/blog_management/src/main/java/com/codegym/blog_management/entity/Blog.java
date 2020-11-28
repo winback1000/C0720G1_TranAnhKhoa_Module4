@@ -20,6 +20,7 @@ public class Blog {
     @Column(name = "post_date", columnDefinition = "DATE")
     String postDate;
     String writer;
+    String image;
 
     public String getShortWord(){
         return this.content.substring(0,60).concat("......");

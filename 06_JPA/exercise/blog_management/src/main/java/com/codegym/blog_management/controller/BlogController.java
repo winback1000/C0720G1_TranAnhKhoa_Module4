@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Controller
@@ -61,7 +62,9 @@ public class BlogController {
     }
     @GetMapping("/search")
     public String searchBlog(@RequestParam String searchData, Model model) {
-        model.addAttribute("blogList", iBlogService.searchBlog(searchData));
+        List<Blog> blogList = iBlogService.searchBlog(searchData);
+        model.addAttribute("blogList", blogList);
+        model.addAttribute("message", "There are "+blogList.size()+" result(s) found");
         return "home";
     }
 }

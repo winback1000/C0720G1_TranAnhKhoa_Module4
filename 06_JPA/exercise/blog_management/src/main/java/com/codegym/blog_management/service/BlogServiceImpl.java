@@ -25,6 +25,10 @@ public class BlogServiceImpl implements IBlogService {
 
     @Override
     public void saveBlog(Blog blog) {
+        String image = iBlogRepository.getOne(blog.getId()).getImage();
+        if(blog.getImage().equals("")){
+            blog.setImage(image);
+        }
         iBlogRepository.save(blog);
     }
 
