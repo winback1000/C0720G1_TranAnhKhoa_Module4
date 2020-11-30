@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<nav th:replace="/layout :: navbar"></nav>
+<div class="content">
+    <form th:object="${catalogue}" action="/catalogue/save" method="post" style="width: 80%; margin: 20px">
+        <input type="hidden" th:field="*{id}">
+        <div  class="form-group">
+            <label for="title">Name</label>
+            <input type="text" class="form-control" id="title" placeholder="Your title" th:field="*{name}">
+        </div>
+
+        <button type="submit" class="btn btn-outline-primary">Save</button>
+        <a href="/" class="btn btn-outline-warning">Cancel</a>
+    </form>
+</div>
+
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
