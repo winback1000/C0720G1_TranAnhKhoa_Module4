@@ -2,7 +2,10 @@ package com.codegym.blog_management.controller;
 
 import com.codegym.blog_management.entity.Blog;
 import com.codegym.blog_management.service.IBlogService;
+import com.codegym.blog_management.service.ICatalogueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,18 +17,23 @@ import java.util.List;
 
 @Controller
 public class BlogController {
-
+    private String searchAll;
     @Autowired
     private IBlogService iBlogService;
+    @Autowired
+    private ICatalogueService iCatalogueService;
 
-    @GetMapping({"","/home"})
-    public String goHome (Model model) {
-        model.addAttribute("blogList", iBlogService.getAllBlog());
+    @GetMapping({"","/home","/blogList"})
+    public String goHome (Model model, Pageable pageable) {
+        searchAll="";
+        model.addAttribute("blogList", iBlogService.getAllBlog(pageable));
+        model.addAttribute("catalogueList", iCatalogueService.getAllCatalogue());
         return "home";
     }
     @GetMapping ("/blog/create")
     public String createBlog(Model model) {
         model.addAttribute("blog", new Blog());
+        model.addAttribute("catalogueList", iCatalogueService.getAllCatalogue());
         return "create";
     }
     @PostMapping ("/blog/save-new-blog")
@@ -45,6 +53,7 @@ public class BlogController {
     @GetMapping("/blog/edit/{id}")
     public String editBlog(@PathVariable int id, Model model){
         model.addAttribute("blog", iBlogService.selectBlogById(id));
+        model.addAttribute("catalogueList", iCatalogueService.getAllCatalogue());
         return "edit";
     }
     @PostMapping("/blog/save-blog")
@@ -61,10 +70,20 @@ public class BlogController {
         return "redirect:/home";
     }
     @GetMapping("/search")
-    public String searchBlog(@RequestParam String searchData, Model model) {
-        List<Blog> blogList = iBlogService.searchBlog(searchData);
-        model.addAttribute("blogList", blogList);
-        model.addAttribute("message", "There are "+blogList.size()+" result(s) found");
-        return "home";
+    public String searchBlog(@RequestParam String searchData, Model model, Pageable pageable) {
+        searchAll = searchData;
+        Page<Blog> blogList = iBlogService.searchBlog(searchAll, pageable);
+        model.addAttribute("searchBlogList", blogList);
+        model.addAttribute("catalogueList", iCatalogueService.getAllCatalogue());
+        model.addAttribute("message", "There are "+blogList.getTotalElements()+" result(s) found");
+        return "search";
+    }
+
+    @GetMapping("/searchBlogList")
+    public String searchPage(Pageable pageable, Model model) {
+        Page<Blog> blogList = iBlogService.searchBlog(searchAll, pageable);
+        model.addAttribute("catalogueList", iCatalogueService.getAllCatalogue());
+        model.addAttribute("searchBlogList", blogList);
+        return "search";
     }
 }

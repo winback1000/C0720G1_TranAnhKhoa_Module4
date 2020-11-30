@@ -22,9 +22,17 @@
             <label for="content">Content</label>
             <textarea class="form-control" id="content" rows="14" th:field="*{content}"></textarea>
         </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelectCatalogue">Catalogue</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelectCatalogue" name="catalogue">
+                <option th:each="catalogueSelect: ${catalogueList}" th:value="${catalogueSelect.id}" th:text="${catalogueSelect.name}" th:selected="${catalogueSelect.id} == *{catalogue.id}"></option>
+            </select>
+        </div>
         <div class="form-group">
-            <label for="exampleFormControlFile1">Image</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1" th:field="*{image}">
+            <label for="image">Image</label>
+            <input type="file" class="form-control-file" id="image" th:field="*{image}">
         </div>
         <button type="submit" class="btn btn-outline-primary">Save</button>
         <a href="/" class="btn btn-outline-warning">Cancel</a>

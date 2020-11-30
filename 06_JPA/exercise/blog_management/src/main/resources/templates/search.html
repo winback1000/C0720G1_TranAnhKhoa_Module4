@@ -17,28 +17,26 @@
         <th>Content</th>
         <th>Write Date</th>
         <th>Writer</th>
-        <th>Catalogue</th>
         <th>Modify</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="row,rowStat : ${blogList}">
-        <td th:text="${rowStat.index+1+(blogList.number*blogList.size)}"></td>
-        <td><a th:href="@{/blog/{id}/view(id=${row.getId()})}"><img th:src="@{'/images/'+${row.image}}" class="img-thumbnail"></a> </td>
+    <tr th:each="row,rowStat : ${searchBlogList}">
+        <td th:text="${rowStat.index+1+(searchBlogList.number*searchBlogList.size)}"></td>
+        <td><a th:href="@{/blog/{id}/view(id=${row.getId()})}"><img th:src="@{'images/'+${row.image}}" class="img-thumbnail"></a> </td>
         <td><a th:href="@{/blog/{id}/view(id=${row.getId()})}" th:text="${row.getTitle()}"></a></td>
         <td th:text="${row.getShortWord()}" data-toggle="tooltip" data-placement="top" th:title="${row.content}"></td>
         <td th:text="${row.getPostDate()}"></td>
         <td th:text="${row.getWriter()}"></td>
-        <td th:text="${row.getCatalogue().getName()}"></td>
         <td><a class="btn btn-outline-warning" th:href="@{/blog/edit/{id}(id=${row.getId()})}">Edit</a>
             <button class="btn btn-outline-danger" th:data-id="${row.getId()}" onclick="getId(this.getAttribute('data-id'))" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
     </tr>
     </tbody>
 </table>
 <div style="background-color: white; width: fit-content; border-radius: 4px">
-    <a class="btn btn-outline-success" th:href="@{'/blogList'(page=${blogList.number - 1})}" th:if="${blogList.hasPrevious()}">Previous</a>
-    <span th:text="${blogList.number + 1}"></span>/<span th:text="${blogList.totalPages}"></span>
-    <a class="btn btn-outline-success" th:href="@{'/blogList'(page=${blogList.number + 1})}" th:if="${blogList.hasNext()}">Next</a>
+    <a class="btn btn-outline-success" th:href="@{'/searchBlogList'(page=${searchBlogList.number - 1})}" th:if="${searchBlogList.hasPrevious()}">Previous</a>
+    <span th:text="${searchBlogList.number + 1}"></span>/<span th:text="${searchBlogList.totalPages}"></span>
+    <a class="btn btn-outline-success" th:href="@{'/searchBlogList'(page=${searchBlogList.number + 1})}" th:if="${searchBlogList.hasNext()}">Next</a>
 </div>
 <div th:replace="/layout :: deleteModal"></div>
 <footer th:replace="/layout :: footer"></footer>

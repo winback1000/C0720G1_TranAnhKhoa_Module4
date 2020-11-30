@@ -1,5 +1,6 @@
 package com.codegym.blog_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,16 @@ public class Blog {
     String writer;
     String image;
 
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+            @JoinColumn(name = "catalogue_id", referencedColumnName = "id")
+    Catalogue catalogue;
+
     public String getShortWord(){
-        return this.content.substring(0,60).concat("......");
+        if(this.content.length()>60) {
+            return this.content.substring(0,60).concat("......");
+        } else {
+            return this.content;
+        }
     }
 }
