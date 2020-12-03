@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body style="background-color: aquamarine">
+<div style="width: 50%; background-color: white; border-radius: 5px; position: relative; left: 25%; top: 10%" >
+    <form th:object="${user}" action="/save" method="post" style="margin: 10px">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input class="form-control" id="firstName" type="text" th:field="*{firstName}" placeholder="4-45 characters">
+            <h5 style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></h5>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input class="form-control" id="lastName" type="text" th:field="*{lastName}" placeholder="4-45 characters">
+            <h5 style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></h5>
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="name@example.com" th:field="*{email}">
+            <h5 style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></h5>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="More than 8 characters and not include special character">
+            <h5 style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></h5>
+        </div>
+        <div class="form-group">
+            <label for="age">Date of birth</label>
+            <input class="form-control" id="age" type="date" th:field="*{dateOfBirth}" placeholder="Older than 18">
+            <h5 style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></h5>
+        </div>
+        <button type="submit" class="btn btn-outline-primary"> Submit</button>
+        <a href="#" class="btn btn-outline-warning">Cancel</a>
+    </form>
+</div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>

@@ -9,23 +9,15 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Documented
-@Constraint(validatedBy = AdultValidator.class)
 @Target({FIELD})
 @Retention(RUNTIME)
+@Documented
+@Constraint(validatedBy = PasswordValidator.class)
+public @interface Password {
 
-public @interface Adult {
-
-    int min() default 0;
-
-    int max() default Integer.MAX_VALUE;
-
-    String message() default "The page only accepts adult people";
+    String message() default "Password is too weak";
 
     Class<?>[] groups() default { };
 
     Class<? extends Payload>[] payload() default { };
-    @interface List {
-        Adult[] value();
-    }
 }

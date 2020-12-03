@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout:: header"></head>
+<body>
+<div th:replace="layout:: navbar"></div>
+<div id="bookStock" style="background-color: aqua; width: 49.9%;height: 1000px; position: relative; float: left">
+    <h2 style="text-align: center">Book Stock</h2>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row,rowStat : ${bookList}">
+            <th th:text="${rowStat.index+1}"></th>
+            <td th:text="${row.name}"></td>
+            <td th:text="${row.quantity}"></td>
+            <td>
+                <a class="btn btn-outline-success" th:href="@{/borrow/{id}(id=${row.getId()})}">Borrow</a>
+<!--            <button th:onclick="${borrowList.add(row)}" class="btn btn-outline-success">Lend</button>-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="borrowCard" style="background-color: darkgray; width: 49.9%;height: 1000px; position: relative; float: right">
+    <h2 style="text-align: center">Borrow Card</h2>
+    <form action="/confirm" method="post" th:object="${borrowCard}">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="student">Student</label>
+            </div>
+            <select class="custom-select" id="student" th:field="*{student.id}">
+                <option th:each="std: ${studentList}" th:value="${std.id}" th:text="${std.name}" th:selected="${std.id} == *{student.id}"></option>
+            </select>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Return Date</span>
+            </div>
+            <input type="date" class="form-control" th:field="*{returnDate}">
+        </div>
+        <h4>List of borrowing book</h4>
+        <div>
+            <table class="table">
+                <tbody>
+                <tr th:each="book: ${borrowList}">
+                    <td th:text="${book.name}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-outline-primary" type="submit">Submit</button>
+    </form>
+</div>
+</body>
+<th:block th:replace="layout:: b4script"></th:block>
+</html>
