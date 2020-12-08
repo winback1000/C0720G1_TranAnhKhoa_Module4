@@ -3,6 +3,7 @@
 <head th:replace="/layout:: header"></head>
 <body>
 <div th:replace="layout:: navbar"></div>
+<h2 style="color: green" th:if="${message}" th:text="${message}"></h2>
 <div id="bookStock" style="background-color: aqua; width: 49.9%;height: 1000px; position: relative; float: left">
     <h2 style="text-align: center">Book Stock</h2>
 
@@ -21,8 +22,8 @@
             <td th:text="${row.name}"></td>
             <td th:text="${row.quantity}"></td>
             <td>
-                <a class="btn btn-outline-success" th:href="@{/borrow/{id}(id=${row.getId()})}">Borrow</a>
-<!--            <button th:onclick="${borrowList.add(row)}" class="btn btn-outline-success">Lend</button>-->
+<!--                <a class="btn btn-outline-success" th:href="@{/borrow/{id}(id=${row.getId()})}">Borrow</a>-->
+            <button th:data-id="${row.getId()}" th:data-name="${row.getName()}" onclick="getBook(this.getAttribute('data-id'), this.getAttribute('data-name'))" class="btn btn-outline-success">Lend</button>
             </td>
         </tr>
         </tbody>
@@ -30,14 +31,14 @@
 </div>
 <div id="borrowCard" style="background-color: darkgray; width: 49.9%;height: 1000px; position: relative; float: right">
     <h2 style="text-align: center">Borrow Card</h2>
-    <form action="/confirm" method="post" th:object="${borrowCard}">
+    <form action="/confirm" method="post" th:object="${tempBorrowCard}">
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <label class="input-group-text" for="student">Student</label>
             </div>
-            <select class="custom-select" id="student" th:field="*{student.id}">
-                <option th:each="std: ${studentList}" th:value="${std.id}" th:text="${std.name}" th:selected="${std.id} == *{student.id}"></option>
+            <select class="custom-select" id="student" th:field="*{idStudent}">
+                <option th:each="std: ${studentList}" th:value="${std.id}" th:text="${std.name}" th:selected="${std.id} == *{idStudent}"></option>
             </select>
         </div>
 
@@ -47,19 +48,23 @@
             </div>
             <input type="date" class="form-control" th:field="*{returnDate}">
         </div>
+        <div>
+            <h5 style="color: red" th:if="${#fields.hasErrors('returnDate')}" th:errors="*{returnDate}"></h5>
+        </div>
         <h4>List of borrowing book</h4>
         <div>
-            <table class="table">
-                <tbody>
-                <tr th:each="book: ${borrowList}">
-                    <td th:text="${book.name}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <input type="hidden" id="idList" name="idList">
+           <p id="bookList" name="name"></p>
         </div>
         <button class="btn btn-outline-primary" type="submit">Submit</button>
     </form>
 </div>
 </body>
 <th:block th:replace="layout:: b4script"></th:block>
+<script th:inline="javascript">
+    function getBook(id, name) {
+        document.getElementById("idList").value += id+" ";
+        document.getElementById("bookList").innerHTML += (name+"<br>");
+    }
+</script>
 </html>

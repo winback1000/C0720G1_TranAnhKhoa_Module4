@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="homePage:: #header">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="homePage:: #navbar"></nav>
+<table class = "table">
+    <tr>
+        <th>No.</th>
+        <th>Product Name</th>
+        <th>Image</th>
+        <th>Price per unit</th>
+        <th>Quantity</th>
+        <th>Price</th>
+    </tr>
+    <tr th:each="tempCartProduct, row : ${tempCart}">
+<!--        <th:block th:object="${tempCartProduct}">-->
+            <td th:text="${row.index+1}"></td>
+            <td th:text="${tempCartProduct.getName()}"></td>
+            <td><img class="card-img-top" th:src="@{'/images/'+${tempCartProduct.getImage()}}" alt="No Image Yet" style="height: 60px; width: 70px"></td>
+            <td th:text="${tempCartProduct.getPrice()}"></td>
+            <td><input th:value="${tempCartProduct.quantity}"></td>
+            <td th:text="${tempCartProduct.price*tempCartProduct.quantity}"></td>
+<!--        </th:block>-->
+    </tr>
+</table>
+</body>
+<th:block th:replace="homePage:: #bootstrapScript"></th:block>
+</html>

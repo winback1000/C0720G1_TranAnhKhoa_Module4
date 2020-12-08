@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="homePage:: #header">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    pre{
+        /*margin: 0 10px;*/
+        text-align: justify;
+        text-indent: 40px;
+        white-space: pre-wrap;
+    }
+</style>
+<body>
+<nav th:replace="homePage:: #navbar"></nav>
+<div th:object="${selectedProduct}" style="width: 60%; position: relative; left: 20%">
+    <img th:src="@{'/images/'+${selectedProduct.image}}" alt="No Image Yet" style="height: 200px">
+    <h3 th:text="${selectedProduct.name}"></h3>
+    <pre th:text="${selectedProduct.description}"></pre>
+    <span>Price: </span><span th:text="${selectedProduct.price}"></span>
+    <br>
+    <a href="/productList" class="btn btn-outline-warning">Back to Main Menu</a>
+    <a th:href="@{/product/addToCart/{id}(id= ${selectedProduct.id})}" class="btn btn-outline-primary">Add to Cart</a>
+
+</div>
+
+</body>
+<th:block th:replace="homePage:: #bootstrapScript"></th:block>
+</html>
