@@ -1,5 +1,6 @@
 package com.codegym.blog_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class Catalogue {
     Integer id;
     String name;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "catalogue", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     List<Blog> blogs;

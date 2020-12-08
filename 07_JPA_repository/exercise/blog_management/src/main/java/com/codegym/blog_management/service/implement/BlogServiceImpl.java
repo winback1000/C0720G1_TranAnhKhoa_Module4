@@ -25,7 +25,7 @@ public class BlogServiceImpl implements IBlogService {
 
     @Override
     public Blog selectBlogById(int id) {
-        return iBlogRepository.getOne(id);
+        return iBlogRepository.findById(id).get();
     }
 
     @Override
@@ -45,5 +45,10 @@ public class BlogServiceImpl implements IBlogService {
     @Override
     public Page<Blog> searchBlog(String searchData, Pageable pageable) {
         return iBlogRepository.findAllByTitleContainsOrContentContainsOrWriterContains(searchData,searchData,searchData,pageable);
+    }
+
+    @Override
+    public Page<Blog> searchBlogByCatalogue(int id, Pageable pageable) {
+        return iBlogRepository.findAllByCatalogue_Id(id,pageable);
     }
 }

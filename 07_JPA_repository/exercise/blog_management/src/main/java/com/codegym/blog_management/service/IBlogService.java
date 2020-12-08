@@ -13,4 +13,5 @@ public interface IBlogService {
     void saveBlog (Blog blog);
     void deleteBlog (int id);
     Page<Blog> searchBlog(String searchData, Pageable pageable);
+    Page<Blog> searchBlogByCatalogue(int id, Pageable pageable);
 }
