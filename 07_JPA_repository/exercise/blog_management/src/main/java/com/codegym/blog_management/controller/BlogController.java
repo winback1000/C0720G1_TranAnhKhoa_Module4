@@ -3,16 +3,19 @@ package com.codegym.blog_management.controller;
 import com.codegym.blog_management.entity.Blog;
 import com.codegym.blog_management.service.IBlogService;
 import com.codegym.blog_management.service.ICatalogueService;
+import com.codegym.blog_management.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.time.LocalDate;
-import java.util.List;
 
 
 @Controller
@@ -85,5 +88,31 @@ public class BlogController {
         model.addAttribute("catalogueList", iCatalogueService.getAllCatalogue());
         model.addAttribute("searchBlogList", blogList);
         return "search";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage(Model model) {
+        return "loginPage";
+    }
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public String accessDenied(Model model, Principal principal) {
+
+        if (principal != null) {
+            User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+            String userInfo = WebUtils.toString(loginedUser);
+
+            model.addAttribute("userInfo", userInfo);
+
+            String message = "Hi " + principal.getName() //
+                    + "<br> You do not have permission to access this page!";
+            model.addAttribute("message", message);
+        }
+        return "403Page";
+    }
+    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
+    public String logoutSuccessfulPage(Model model) {
+        model.addAttribute("title", "Logout");
+        return "logoutSuccessfulPage";
     }
 }
