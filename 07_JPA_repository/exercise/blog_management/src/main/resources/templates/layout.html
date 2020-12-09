@@ -38,7 +38,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
-    <a class="navbar-brand" th:href="@{/home}">Blog Management</a>
+    <a class="navbar-brand" th:href="@{/home}"><span th:text="#{title}"></span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -46,26 +46,26 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/blog/create}">Add New Blog<span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/blog/create}"><span th:text="#{functionAddBlog}"></span><span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Catalogue
+                    <span th:text="#{functionCatalogue}"></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <th:block th:each="catalogue : ${catalogueList}">
                         <a class="dropdown-item" th:href="@{/catalogue/view/{id}(id=${catalogue.getId()})}" th:text="${catalogue.getName()}"></a>
                     </th:block>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/catalogue/manage">Catalogue Management</a>
-                    <a th:href="@{/catalogue/add}" class="dropdown-item">Add New Catalogue</a>
+                    <a class="dropdown-item" href="/catalogue/manage"><span th:text="#{functionCatalogueManage}"></span></a>
+                    <a th:href="@{/catalogue/add}" class="dropdown-item"><span th:text="#{functionAddCatalogue}"></span></a>
                 </div>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="/search" method="get">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchData">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><span th:text="#{functionSearch}"></span></button>
         </form>
     </div>
 </nav>
@@ -79,7 +79,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Confirmation needed!</h5>
+                <h5 class="modal-title"><span th:text="#{titleConfirmation}"></span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -87,7 +87,7 @@
             <form action="/blog/delete" method="get">
                 <div class="modal-body">
                     <input type="hidden" id="idToDelete" name="deleteId">
-                    <h4>Please confirm to delete this blog!</h4>
+                    <h4 th:text="#{messageConfirmation}"></h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -101,6 +101,7 @@
 
 
 <footer th:fragment="footer">
+    <script src="js/jquery-3.5.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

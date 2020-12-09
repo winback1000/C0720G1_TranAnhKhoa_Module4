@@ -11,8 +11,6 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,19 +22,38 @@ public class Customer {
     String passWord;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    @JsonBackReference
-    List<Cart> cartList = new ArrayList<>();
+    List<Cart> cartList;
 
     String address;
 
     boolean remember = false;
 
     public Cart getUnpaidCart(){
-        for (Cart cart: cartList) {
+        for (Cart cart: this.getCartList()) {
             if(!cart.paid) {
                 return cart;
             }
-        } cartList.add(new Cart(null, this, new ArrayList<>(),false));
-        return cartList.get(cartList.size()-1);
+        } this.getCartList().add(new Cart(null, this, new ArrayList<>(),false));
+        return this.getCartList().get(this.getCartList().size()-1);
+    }
+
+    public Customer(Integer id, String name, String passWord, List<Cart> cartList, String address, boolean remember) {
+        this.id = id;
+        this.name = name;
+        this.passWord = passWord;
+        this.cartList = cartList;
+        this.address = address;
+        this.remember = remember;
+    }
+
+    public Customer() {
+    }
+
+    public List<Cart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
     }
 }

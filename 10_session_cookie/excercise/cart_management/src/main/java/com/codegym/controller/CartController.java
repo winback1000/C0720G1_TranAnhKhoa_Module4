@@ -44,13 +44,13 @@ public class CartController {
         return "detailProduct";
     }
     @GetMapping("product/addToCart/{id}")
-    public String addToCart(@SessionAttribute("tempCart") List<TempCartProduct> tempCart, @PathVariable Integer id){
-        TempCartProduct tempCartProduct = new TempCartProduct();
-        tempCartProduct.setProductId(id);
-        tempCartProduct.setName(iProductService.findById(id).getName());
-        tempCartProduct.setImage(iProductService.findById(id).getImage());
-        tempCartProduct.setPrice(iProductService.findById(id).getPrice());
-        tempCartProduct.setQuantity(1);
+    public String addToCart(@ModelAttribute List<CartProduct> tempCart,@ModelAttribute Customer customer, @PathVariable Integer id){
+//        TempCartProduct tempCartProduct = new TempCartProduct();
+//        tempCartProduct.setProductId(id);
+//        tempCartProduct.setName(iProductService.findById(id).getName());
+//        tempCartProduct.setImage(iProductService.findById(id).getImage());
+//        tempCartProduct.setPrice(iProductService.findById(id).getPrice());
+//        tempCartProduct.setQuantity(1);
 //       CartProduct tempCartProduct = new CartProduct();
 //       tempCartProduct.setProduct(iProductService.findById(id));
 //       tempCartProduct.setQuantity(1);
@@ -58,7 +58,10 @@ public class CartController {
 //       tempCartProduct.setCart(customer.getUnpaidCart());
 //       customer.getUnpaidCart().getCardProductList().add(tempCartProduct);
 //       model.addAttribute("customer", customer);
-        tempCart.add(tempCartProduct);
+//        tempCart.add(tempCartProduct);
+        CartProduct temp = new CartProduct(null, customer.getCartList().get(customer.getCartList().size()-1),iProductService.findById(id),1);
+//        customer.getCartList().get(customer.getCartList().size()-1).getCardProductList().add(temp);
+        tempCart.add(temp);
        return "redirect:/productList";
     }
     @GetMapping("/cart")
@@ -67,18 +70,18 @@ public class CartController {
         return "showCart";
     }
     @ModelAttribute("customer")
-    public Customer checkCookie(@CookieValue(defaultValue = "0") String customerId, @ModelAttribute Optional<Customer> customer) {
-        if(!customerId.equals("0")){
+    public Customer checkCookie(@CookieValue(defaultValue = "1") String customerId, @ModelAttribute Optional<Customer> customer) {
+        if(!customerId.equals("1")){
             return iCustomerService.findById(Integer.parseInt(customerId));
         } else {
-            if(!customer.isPresent()) {
-                return new Customer();
+            if(!customer.isPresent() || customer.get().getId() == null) {
+                return iCustomerService.findById(1);
             } else return customer.get();
         }
     }
     @ModelAttribute("tempCart")
-    public List<TempCartProduct> createTempCart(){
-        List<TempCartProduct> tempCart = new ArrayList<>();
+    public List<CartProduct> createTempCart(@ModelAttribute Customer customer){
+        List<CartProduct> tempCart = customer.getCartList().get(customer.getCartList().size()-1).getCardProductList();
         return tempCart;
     }
 }

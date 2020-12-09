@@ -20,7 +20,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/cart">View your cart</a>
             </li>
-            <li class="nav-item dropdown" th:if="${customer.id != null}">
+            <li class="nav-item dropdown" th:if="${customer.id != 1}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Account
                 </a>
@@ -34,8 +34,8 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <a style="margin-left: 20px" th:if="${customer.id == null}" class="btn btn-outline-success my-2 my-sm-0" href="/login">Login</a>
-        <th:block th:if="${customer.name != null}">
+        <a style="margin-left: 20px" th:if="${customer.id == 1}" class="btn btn-outline-success my-2 my-sm-0" href="/login">Login</a>
+        <th:block th:if="${customer.id != 1}">
             <span>Welcome </span><span th:text="${customer.name}"></span>
         </th:block>
     </div>

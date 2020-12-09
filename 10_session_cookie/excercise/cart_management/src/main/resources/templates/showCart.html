@@ -18,11 +18,11 @@
     <tr th:each="tempCartProduct, row : ${tempCart}">
 <!--        <th:block th:object="${tempCartProduct}">-->
             <td th:text="${row.index+1}"></td>
-            <td th:text="${tempCartProduct.getName()}"></td>
-            <td><img class="card-img-top" th:src="@{'/images/'+${tempCartProduct.getImage()}}" alt="No Image Yet" style="height: 60px; width: 70px"></td>
-            <td th:text="${tempCartProduct.getPrice()}"></td>
+            <td th:text="${tempCartProduct.getProduct().getName()}"></td>
+            <td><img class="card-img-top" th:src="@{'/images/'+${tempCartProduct.getProduct().image}}" alt="No Image Yet" style="height: 60px; width: 70px"></td>
+            <td th:text="${tempCartProduct.getProduct().price}"></td>
             <td><input th:value="${tempCartProduct.quantity}"></td>
-            <td th:text="${tempCartProduct.price*tempCartProduct.quantity}"></td>
+            <td th:text="${tempCartProduct.getProduct().price*tempCartProduct.quantity}"></td>
 <!--        </th:block>-->
     </tr>
 </table>
