@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index:: #header"></head>
+
+<body>
+<section th:replace="index:: #menu1-13"></section>
+
+
+<section class="features10 cid-sjepaiqqO4" id="features11-1a">
+    <!---->
+    <div style="margin: 10px">
+        <a th:href="@{/services/add}" class="btn btn-primary display-7" style="float: left; margin: 0 10px 10px 0">Add New Service</a>
+        <form class="form-inline my-2 my-lg-0" style="float: left">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+            <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(190, 211, 249);">
+    </div>
+    <div class="container">
+        <th:block th:if="${successMessage}">
+            <h3 style="color: red" th:text="${successMessage}"></h3>
+        </th:block>
+        <div class="title">
+            <h3 class="mbr-section-title mbr-fonts-style mb-4 display-2">
+                <strong>Service List</strong>
+            </h3>
+
+        </div>
+        <th:block th:each="service : ${servicePage}">
+            <div class="card">
+                <div class="card-wrapper">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-md-3">
+                            <div class="image-wrapper">
+                                <img th:src="@{'/assets/images/'+${service.image}}" alt="Not Available pic" title="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md">
+                            <div class="card-box">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="top-line">
+                                            <h4 class="card-title mbr-fonts-style display-5"><strong th:text="${service.name}"></strong></h4>
+                                            <p class="cost mbr-fonts-style display-5" ><span>$ </span> <span th:text="${service.cost}"></span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="bottom-line">
+                                            <p class="mbr-text mbr-fonts-style m-0 display-7" th:text="${service.descriptionOtherConvenience}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mbr-section-btn item-footer mt-2">
+                                <a th:href="@{/services/view/{id} (id = ${service.id})}" class="btn btn-primary item-btn display-7" target="_blank"><span class="mbrib-italic mbr-iconfont mbr-iconfont-btn"></span></a>
+                                <a th:href="@{/services/edit/{id} (id = ${service.id})}" class="btn btn-warning item-btn display-7" target="_blank"><span class="mbrib-setting3 mbr-iconfont mbr-iconfont-btn"></span></a>
+                                <button class="btn btn-danger item-btn display-7" target="_blank" th:data-id="${service.id}" th:data-name="${service.getName()}" th:data-code="${service.getServiceCode()}"
+                                        onclick="getInfo(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-code'))"
+                                        data-toggle="modal" data-target="#deleteModal"><span class="mbrib-trash mbr-iconfont mbr-iconfont-btn"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+        <div style="background-color: transparent ; width: fit-content; border-radius: 4px;">
+            <a class="btn btn-outline-success" th:href="@{'/services'(page=${servicePage.number - 1}, keyword=${searchData})}" th:if="${servicePage.hasPrevious()}">Previous</a>
+            <span th:text="${servicePage.number + 1}"></span>/<span th:text="${servicePage.totalPages}"></span>
+            <a class="btn btn-outline-success" th:href="@{'/services'(page=${servicePage.number + 1}, keyword=${searchData})}" th:if="${servicePage.hasNext()}">Next</a>
+        </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="height: 400px">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/services/delete" method="get">
+                <input type="hidden" id="deleteID" name="deleteID">
+                <div class="modal-body">
+                    <h3>Please confirm for deleting the Service</h3>
+                    <h2>Name:  <input id="deleteName" style="border: none" readonly></h2>
+                    <h2>ID:  <input id="employeeCode" style="border: none" readonly></h2>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" style="margin-left: 20px">Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="index:: #footerAndScript"></th:block>
+<script th:inline="javascript">
+    function getInfo(id, name, code) {
+        $("#deleteID").val(id);
+        $("#deleteName").val(name);
+        $("#employeeCode").val(code);
+    }
+</script>
+
+
+</body>
+</html>

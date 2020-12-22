@@ -45,11 +45,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         // Các trang không yêu cầu login
-        http.authorizeRequests().antMatchers("/", "/login", "/logout","/search","/searchBlogList","/catalogue/view/{id}").permitAll();
+        http.authorizeRequests().antMatchers("/", "/login", "/logout","/search","/searchBlogList","/catalogue/view/{id}","/blog/{id}/view").permitAll();
 
         // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
         // Nếu chưa login, nó sẽ redirect tới trang /login.
-        http.authorizeRequests().antMatchers("/blog/create","/blog/{id}/view","/blog/save-new-blog").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/blog/create","/blog/save-new-blog").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 
         // Trang chỉ dành cho ADMIN
         http.authorizeRequests().antMatchers("/admin", "/blog/edit/{id}","/blog/delete","/catalogue/**").access("hasRole('ROLE_ADMIN')");
@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Cấu hình Remember Me.
         http.authorizeRequests().and() //
                 .rememberMe().tokenRepository(this.persistentTokenRepository()) //
-                .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
+                .tokenValiditySeconds(2 * 24 * 60 * 60); // 24h
 
     }
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index:: #header"></head>
+<body>
+<section th:replace="index:: #menu3-0"></section>
+<section class="section-table cid-sjJEB5hSoc mbr-parallax-background" id="table1-4">
+    <div class="mbr-overlay" style="opacity: 0.4; background-color: rgb(239, 239, 239);">
+    </div>
+    <div class="container">
+        <form action="/purchase/save" method="post" th:object="${purchasing}">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="pb-3 align-left mbr-fonts-style display-2">
+                        Add Purchasing</h3>
+                </div>
+                <div class="col-md-6">
+
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputCustomer">Customer<sup style="color: red">*</sup></label>
+                        </div>
+                        <select class="custom-select" id="inputCustomer" th:field="*{customer.id}">
+                            <option th:each="customer: ${customerList}" th:value="${customer.id}" th:text="${customer.name}" th:selected="${customer.id} == *{customer.id}"></option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputEmployee">Service Type<sup style="color: red">*</sup></label>
+                        </div>
+                        <select class="custom-select" id="inputEmployee" th:field="*{serviceType}">
+                            <option value="Land" th:text="Land" ></option>
+                            <option value="House" th:text="House" ></option>
+                        </select>
+                    </div>
+
+
+                    <div class="input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text " id="inputStartDate">Date<sup style="color: red">*</sup></span>
+                        </div>
+                        <input type="date" class="form-control col-lg-8" aria-label="Default" aria-describedby="inputStartDate" th:field="*{purchaseDate}" id="startDate">
+                        <h5 style="color: red" th:if="${#fields.hasErrors('purchaseDate')}" th:errors="*{purchaseDate}"></h5>
+<!--                        <h5 style="color: red" th:if="${#fields.hasErrors('global')}" th:errors="*{global}">Incorrect date</h5>-->
+                    </div>
+
+
+                    <div class="input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputDeposite">Price(VND)<sup style="color: red">*</sup></span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputDeposite" th:field="*{price}">
+                        <h5 style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></h5>
+                    </div>
+
+                    <div class="input-group-sm mb-3" id="attachServicesTable">
+                    </div>
+
+                    <div class="input-group-sm mb-3" id="estimateCost">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="displayCost">Area(m2)<sup style="color: red">*</sup></span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputDeposite" th:field="*{area}">
+                        <h5 style="color: red" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></h5>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary" style="float: right; margin: 10px">Submit</button>
+                    <a type="button" class="btn btn-secondary" th:href="@{/}" style="float: right; margin: 10px">Cancel</a>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</section>
+
+<section th:replace="index:: #footer3-2"></section>
+<div th:replace="index:: #scriptBottom"></div>
+</body>
+</html>

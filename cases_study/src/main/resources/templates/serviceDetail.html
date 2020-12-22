@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index:: #header"></head>
+
+<body>
+<section th:replace="index:: #menu1-13"></section>
+<section class="features10 cid-sjepaiqqO4" id="features11-1a">
+
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(190, 211, 249);">
+    </div>
+    <div class="container">
+        <div class="title">
+            <h3 class="mbr-section-title mbr-fonts-style mb-4 display-2">
+                <strong th:if="${service.name}" th:text="${service.name}"></strong></h3>
+            <h3><strong th:if="${service.name == null}" >New Service</strong></h3>
+            <h4 th:if="${service.id}" class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-2 display-5" th:text="${service.getServiceCode()}"></h4>
+            </h3>
+            <img th:src="@{'/assets/images/'+${service.image}}" alt="Not Available pic" title="">
+            <form action="/services/save" method="post" th:object="${service}">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Area</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{area}" readonly>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Cost</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{cost}" readonly>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Max People</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{maxPeople}" readonly>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" >Rent Type</label>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{rentType.name}" readonly>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" >Service Type</label>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" id="inputServiceType" th:field="*{serviceType.name}" readonly>
+                </div>
+
+                <div class="input-group mb-3" id="standardBlock">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Standard</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{standard}" readonly>
+
+                </div>
+
+                <div class="input-group mb-3" id="descriptionBlock">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Description Other Convenience</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{descriptionOtherConvenience}" readonly>
+                </div>
+
+                <div class="input-group mb-3" id="poolAreaBlock">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Swimming Pool Area</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{poolArea}" readonly>
+                </div>
+
+                <div class="input-group mb-3" id="floorBlock">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Number Of Floor</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{numberOfFloor}" readonly>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                    <a class="btn btn-light display-4" th:href="@{/services}" style="float: left">Back</a>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+    </div>
+</section>
+<th:block th:replace="index:: #footerAndScript"></th:block>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        let type = $('#inputServiceType').val();
+        if(type === 'Room') {
+            $('#standardBlock').hide();
+            $('#descriptionBlock').hide();
+            $('#poolAreaBlock').hide();
+            $('#floorBlock').hide();
+        } else if (type === 'House') {
+            $('#poolAreaBlock').hide();
+            $('#standardBlock').show();
+            $('#descriptionBlock').show();
+            $('#floorBlock').show();
+        } else if (type === 'Villa') {
+            $('#poolAreaBlock').show();
+            $('#standardBlock').show();
+            $('#descriptionBlock').show();
+            $('#floorBlock').show();
+        }
+    });
+
+    // $('#inputServiceType').change(function () {
+    //     let type = $('#inputServiceType').val();
+    //     if(type === '1') {
+    //         $('#standardBlock').hide();
+    //         $('#descriptionBlock').hide();
+    //         $('#poolAreaBlock').hide();
+    //         $('#floorBlock').hide();
+    //     } else if (type === '2') {
+    //         $('#poolAreaBlock').hide();
+    //         $('#standardBlock').show();
+    //         $('#descriptionBlock').show();
+    //         $('#floorBlock').show();
+    //     } else if (type === '3') {
+    //         $('#poolAreaBlock').show();
+    //         $('#standardBlock').show();
+    //         $('#descriptionBlock').show();
+    //         $('#floorBlock').show();
+    //     }
+    // })
+</script>
+</body>
+</html>

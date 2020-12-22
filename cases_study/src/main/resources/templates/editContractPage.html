@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index:: #header">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section th:replace="index:: #menu1-13"></section>
+
+<section class="section-table cid-sjjyT4ipnN mbr-parallax-background" id="table1-1g">
+
+
+    <div class="mbr-overlay" style="opacity: 0.4; background-color: rgb(239, 239, 239);">
+    </div>
+    <div class="container">
+        <form action="/contracts/save" method="post" th:object="${contract}">
+        <div class="row">
+            <div class="col-md-6">
+
+                <h3 class="pb-3 align-left mbr-fonts-style display-2">
+                    Attach Services</h3>
+
+                                    <th:block th:each="contactDetail,row : *{contractDetailList}">
+                                        <div class="input-group" >
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="width: 200px" id="" th:text="${contactDetail.attachService.name} + ' / price :'+ ${contactDetail.attachService.cost}"></span>
+                                            </div>
+                                            <input type="text" th:id="'attachServiceQuantity'+ ${row.index}" class="form-control" th:field="*{contractDetailList[__${row.index}__].quantity}">
+<!--                                            <h2 type="text" class="form-control" th:if="*{contractDetailList[__${row.index}__].quantity < 0}"  style="color: red; font-weight: bold; border: none">error</h2>-->
+                                            <input type="hidden" th:id="'attachServicePrice' + ${row.index}" th:value="${contactDetail.attachService.cost}">
+                                            <input type="hidden" th:field="*{contractDetailList[__${row.index}__].attachService.id}">
+                                            <input type="hidden" th:field="*{contractDetailList[__${row.index}__].contract.id}">
+                                            <input type="hidden" th:field="*{contractDetailList[__${row.index}__].id}">
+                                            <input type="hidden" th:field="*{contractDetailList[__${row.index}__].attachService.name}" th:value="${contactDetail.attachService.name}">
+                                            <input type="hidden" th:field="*{contractDetailList[__${row.index}__].attachService.cost}" th:value="${contactDetail.attachService.cost}">
+                                        </div>
+                                        <h5 type="text"  class="text-justify ml-5" th:if="*{contractDetailList[__${row.index}__].quantity < 0}" th:text="${errorMsg}" style="color: red;  border: none"></h5>
+                                    </th:block>
+            </div>
+            <div class="col-md-6">
+
+
+                        <h2 class="pb-3 align-left mbr-fonts-style display-2" th:if="${contract.id != null}">
+                            <strong>Edit Contract</strong></h2>
+                        <h2 class="pb-3 align-left mbr-fonts-style display-2" th:if="${contract.id == null}">
+                            <strong >New Contract</strong></h2>
+                        <input type="hidden" th:field="*{id}">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputCustomer">Customer</label>
+                            </div>
+                            <select class="custom-select" id="inputCustomer" th:field="*{customer.id}">
+                                <option th:each="customer: ${customerList}" th:value="${customer.id}" th:text="${customer.name}" th:selected="${customer.id} == *{customer.id}"></option>
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputEmployee">Employee</label>
+                            </div>
+                            <select class="custom-select" id="inputEmployee" th:field="*{employee.id}">
+                                <option th:each="employee: ${employeeList}" th:value="${employee.id}" th:text="${employee.name}" th:selected="${employee.id} == *{employee.id}"></option>
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputService">Service</label>
+                            </div>
+                            <select class="custom-select" id="inputService" th:field="*{service.id}" >
+                                <option id="service" th:each="service: ${serviceList}" th:value="${service.id}" th:text="${service.name}" th:selected="${service.id} == *{service.id}"
+                                        th:data-servicePrice="${service.cost}" th:data-rentTypeCost="${service.rentType.cost}" ></option>
+                            </select>
+                        </div>
+
+                        <div class="input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text " id="inputStartDate">Start Date</span>
+                            </div>
+                            <input type="date" class="form-control col-lg-8" aria-label="Default" aria-describedby="inputStartDate" th:field="*{startDate}" id="startDate">
+                            <h5 style="color: red" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></h5>
+                            <h5 style="color: red" th:if="${#fields.hasErrors('global')}" th:errors="*{global}">Incorrect date</h5>
+                        </div>
+
+                        <div class="input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputEndDate">End Date</span>
+                            </div>
+                            <input type="date" class="form-control" aria-label="Default" aria-describedby="inputEndDate" th:field="*{endDate}" id="endDate">
+                            <h5 style="color: red" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></h5>
+                            <h5 style="color: red" th:if="${#fields.hasErrors('global')}" th:errors="*{global}">Incorrect date</h5>
+                        </div>
+
+                        <div class="input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputDeposite">Deposite</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputDeposite" th:field="*{deposit}">
+                            <h5 style="color: red" th:if="${#fields.hasErrors('deposit')}" th:errors="*{deposit}"></h5>
+                        </div>
+
+                        <div class="input-group-sm mb-3" id="attachServicesTable">
+                        </div>
+
+                        <div class="input-group-sm mb-3" id="estimateCost">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="displayCost">Total Cost</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Default" aria-describedby="totalCost" id="totalCost" readonly>
+                        </div>
+
+
+                    <button type="submit" class="btn btn-primary" style="float: right; margin: 10px">Submit</button>
+                    <a type="button" class="btn btn-secondary" th:href="@{/contracts}" style="float: right; margin: 10px">Cancel</a>
+
+
+            </div>
+        </div>
+    </form>
+    </div>
+</section>
+
+<th:block th:replace="index:: #footerAndScript"></th:block>
+
+<script th:inline="javascript">
+    function calculateCost(){
+        let totalCost = 0;
+        let servicePrice =parseInt($('#inputService option:selected').attr('data-servicePrice'));
+        let rentTypeCost =parseInt($('#inputService option:selected').attr('data-rentTypeCost'));
+        console.log('servicePrice = ' + servicePrice);
+        console.log('rentTypeCost =' + servicePrice);
+        let startDate = Date.parse($("#startDate").val());
+        let endDate = Date.parse($("#endDate").val());
+        console.log(startDate);
+        console.log(endDate);
+        totalCost += $("#attachServiceQuantity0").val()* $("#attachServicePrice0").val();
+        totalCost += $("#attachServiceQuantity1").val()* $("#attachServicePrice1").val();
+        totalCost += $("#attachServiceQuantity2").val()* $("#attachServicePrice2").val();
+        totalCost += $("#attachServiceQuantity3").val()* $("#attachServicePrice3").val();
+        totalCost += $("#attachServiceQuantity4").val()* $("#attachServicePrice4").val();
+        totalCost += servicePrice*rentTypeCost*((endDate-startDate)/(3600*24*1000));
+        $("#totalCost").val(totalCost);
+    }
+
+    $("#attachServiceQuantity0, #attachServiceQuantity1, #attachServiceQuantity2,#attachServiceQuantity3,#attachServiceQuantity4,#inputService,#startDate,#endDate").change(function () {
+        calculateCost()
+    });
+
+    $(document).ready(function () {
+        calculateCost()
+    });
+
+</script>
+</body>
+</html>

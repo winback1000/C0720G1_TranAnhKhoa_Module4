@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index:: #header"></head>
+<body>
+  
+<section th:replace="index:: #menu1-13"></section>
+
+<section class="form5 cid-sj8nn7HpXT" id="form5-17">
+    
+    <div class="mbr-overlay"></div>
+    <div class="container">
+        <div class="mbr-section-head">
+            <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                <strong th:if="${employee.name}" th:text="${employee.name}"></strong></h3>
+            <h3><strong th:if="${employee.name == null}" >New Employee</strong></h3>
+            <h4 th:if="${employee.id}" class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-2 display-5" th:text="${employee.getEmployeeCode()}"></h4>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                <form action="/employees/save" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name" th:object="${employee}">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="dragArea row">
+                        <h2>Name <sup style="color: red">*</sup> </h2>
+                        <div class="col-12 form-group" data-for="name">
+                            <input type="text" name="name" placeholder="Name" data-form-field="name" class="form-control" th:field="*{name}">
+                            <h5 style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></h5>
+                        </div>
+                        <h2>Email <sup style="color: red">*</sup></h2>
+                        <div class="col-12 form-group" data-for="email">
+                            <input type="email" name="email" placeholder="E-mail" data-form-field="email" class="form-control" th:field="*{email}">
+                            <h5 style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></h5>
+                        </div>
+                        <h2>Address</h2>
+                        <div class="col-12 form-group" data-for="address">
+                            <input type="text" name="address" placeholder="Address" data-form-field="name" class="form-control" th:field="*{address}">
+                        </div>
+                        <h2>Birthday</h2>
+                        <div class="col-12 form-group" data-for="dateOfBirth">
+                            <input type="date" name="dateObBirth" placeholder="Birthday" data-form-field="date" class="form-control" th:field="*{dateOfBirth}">
+                            <h5 style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></h5>
+                        </div>
+                        <h2>ID Card <sup style="color: red">*</sup></h2>
+                        <div class="col-12 form-group" data-for="idCard">
+                            <input type="text" name="idCard" placeholder="Id Card" data-form-field="name" class="form-control" th:field="*{idCard}">
+                            <h5 style="color: red" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></h5>
+                        </div>
+                        <h2>Salary ($) <sup style="color: red">*</sup></h2>
+                        <div class="col-12 form-group" data-for="salary">
+                            <input type="text" name="salary" placeholder="Salary" data-form-field="name" class="form-control" th:field="*{salary}">
+                            <h5 style="color: red" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></h5>
+                        </div>
+                        <h2>Phone Number <sup style="color: red">*</sup></h2>
+                        <div class="col-12 form-group" data-for="phoneNumber">
+                            <input type="text" name="phoneNumber" placeholder="Phone Number" data-form-field="name" class="form-control" th:field="*{phone}">
+                            <h5 style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></h5>
+                        </div>
+
+                        <div class="col-12 form-group" data-for="position">
+                            <h2>Position <sup style="color: red">*</sup></h2>
+                            <select class="custom-select" th:field="*{position.id}" name="position">
+                                <option th:each="position: ${positionList}" th:value="${position.id}" th:text="${position.name}" th:selected="${position.id} == *{position.id}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 form-group" data-for="division">
+                            <h2>Division</h2>
+                            <select class="custom-select" th:field="*{division.id}" name="division">
+                                <option th:each="division: ${divisionList}" th:value="${division.id}" th:text="${division.name}" th:selected="${division.id} == *{division.id}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 form-group" data-for="educationDegree">
+                            <h2>Education Level</h2>
+                            <select class="custom-select" th:field="*{educationDegree.id}" name="educationDegree">
+                                <option th:each="education: ${educationList}" th:value="${education.id}" th:text="${education.name}" th:selected="${education.id} == *{educationDegree.id}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 form-group" data-for="account">
+                            <h2>User Type</h2>
+                            <select class="custom-select" th:field="*{account.id}" name="account">
+                                <option th:each="account: ${accountList}" th:value="${account.id}" th:text="${account.name}" th:selected="${account.id} == *{account.id}"></option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                            <button type="submit" class="btn btn-primary display-4"><span class="mbrib-edit2 mbr-iconfont mbr-iconfont-btn"></span>Save</button>
+                            <a class="btn btn-light display-4" th:href="@{/employees}">Cancel</a>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<th:block th:replace="index:: #footerAndScript"></th:block>
+</body>
+</html>

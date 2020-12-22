@@ -38,7 +38,7 @@
 <div style="background-color: white; width: fit-content; border-radius: 4px">
     <a class="btn btn-outline-success" th:href="@{'/blogList'(page=${blogList.number - 1})}" th:if="${blogList.hasPrevious()}">Previous</a>
     <span th:text="${blogList.number + 1}"></span>/<span th:text="${blogList.totalPages}"></span>
-    <a class="btn btn-outline-success" th:href="@{'/blogList'(page=${blogList.number + 1})}" th:if="${blogList.hasNext()}">Next</a>
+    <a class="btn btn-outline-success" th:href="@{'/blogList'(page=${blogList.number + 1  })}" th:if="${blogList.hasNext()}">Next</a>
 </div>
 <div th:replace="/layout :: deleteModal"></div>
 <footer th:replace="/layout :: footer"></footer>

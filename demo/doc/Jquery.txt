@@ -1,0 +1,15 @@
+$("#btnChangeColor").click(function() {
+            $("#test").css("color", "red");
+            $("#test").css("font-size", "50pt");
+            $("#test").hide();
+            console.log($(".inputText").val());
+        });
+
+        $("#btnAssign").click(function() {
+            let pTag = $("#test").text();
+            $(".inputText").val(pTag);
+        });
+
+        $(window).load(function() {
+
+        });

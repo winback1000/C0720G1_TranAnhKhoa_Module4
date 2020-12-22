@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index:: #header">
+</head>
+
+<body>
+<section th:replace="index:: #menu1-13"></section>
+
+
+  <section class="features11 cid-sj7kdvpMzV mbr-parallax-background" id="features11-z">
+
+    <div class="mbr-overlay" style="opacity: 0.8; background-color: rgb(255, 255, 255);">
+    </div>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="media-container-row">
+                <div class="mbr-figure m-auto" style="width: 50%;">
+                    <img src="/assets/images/mbr-2-1920x1280.jpg" alt="Mobirise" title="">
+                </div>
+                <div class=" align-left aside-content">
+                    <h2 class="mbr-title pt-2 mbr-fonts-style display-2">
+                        ID: <span th:text="${employee.getEmployeeCode()}"></span></h2>
+
+                    <div class="block-content">
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class=" align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        Name : <span th:text="${employee.getName()}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        Address: <span th:text="${employee.address}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        Date Of Birth: <span th:text="${employee.dateOfBirth}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        ID Card: <span th:text="${employee.idCard}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        Salary: <span th:text="${employee.salary}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        Phone Number: <span th:text="${employee.phone}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        Email: <span th:text="${employee.email}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        Position: <span th:text="${employee.position.getName()}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        Education Level: <span th:text="${employee.educationDegree.getName()}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        Division: <span th:text="${employee.division.getName()}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbrib-briefcase"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-7">
+                                        Account Type: <span th:text="${employee.account.getName()}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<th:block th:replace="index:: #footerAndScript"></th:block>
+
+</body>
+</html>

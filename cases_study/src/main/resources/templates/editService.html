@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index:: #header"></head>
+
+<body>
+<section th:replace="index:: #menu1-13"></section>
+<section class="features10 cid-sjepaiqqO4" id="features11-1a">
+
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(190, 211, 249);">
+    </div>
+    <div class="container">
+        <div class="title">
+            <h3 class="mbr-section-title mbr-fonts-style mb-4 display-2">
+                <strong th:if="${service.name}" th:text="${service.name}"></strong></h3>
+            <h3><strong th:if="${service.name == null}" >New Service</strong></h3>
+            <h4 th:if="${service.id}" class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-2 display-5" th:text="${service.getServiceCode()}"></h4>
+            </h3>
+            <form action="/services/save" method="post" th:object="${service}">
+                <input type="hidden" th:field="*{id}">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Name<sup style="color: red">*</sup></span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{name}">
+                    <h5 style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></h5>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Area<sup style="color: red">*</sup></span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{area}">
+                    <h5 style="color: red" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></h5>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Cost ($)<sup style="color: red">*</sup></span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{cost}">
+                    <h5 style="color: red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></h5>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Max People<sup style="color: red">*</sup></span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{maxPeople}">
+                    <h5 style="color: red" th:if="${#fields.hasErrors('maxPeople')}" th:errors="*{maxPeople}"></h5>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputRentType">Rent Type</label>
+                    </div>
+                    <select class="custom-select" id="inputRentType" th:field="*{rentType.id}">
+                        <option th:each="rentType: ${rentTypeList}" th:value="${rentType.id}" th:text="${rentType.name}" th:selected="${rentType.id} == *{rentType.id}"></option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputServiceType">Service Type</label>
+                    </div>
+                    <select class="custom-select" id="inputServiceType" th:field="*{serviceType.id}">
+                        <option th:each="serviceType: ${serviceTypeList}" th:value="${serviceType.id}" th:text="${serviceType.name}" th:selected="${serviceType.id} == *{serviceType.id}"></option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3" id="standardBlock">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Standard<sup style="color: red">*</sup></span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{standard}">
+                    <h5 style="color: red" th:if="${#fields.hasErrors('standard')}" th:errors="*{standard}"></h5>
+                </div>
+
+                <div class="input-group mb-3" id="descriptionBlock">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Description Other Convenience<sup style="color: red">*</sup></span>
+                    </div>
+                    <textarea type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{descriptionOtherConvenience}"></textarea>
+<!--                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{descriptionOtherConvenience}">-->
+                    <h5 style="color: red" th:if="${#fields.hasErrors('descriptionOtherConvenience')}" th:errors="*{descriptionOtherConvenience}"></h5>
+                </div>
+
+                <div class="input-group mb-3" id="poolAreaBlock">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Swimming Pool Area<sup style="color: red">*</sup></span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{poolArea}">
+                    <h5 style="color: red" th:if="${#fields.hasErrors('poolArea')}" th:errors="*{poolArea}"></h5>
+                </div>
+
+                <div class="input-group mb-3" id="floorBlock">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Number Of Floor<sup style="color: red">*</sup></span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" th:field="*{numberOfFloor}">
+                    <h5 style="color: red" th:if="${#fields.hasErrors('numberOfFloor')}" th:errors="*{numberOfFloor}"></h5>
+                </div>
+
+                <div class="input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <h3>Image</h3>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile03" th:field="*{image}">
+                        <label class="custom-file-label" for="inputGroupFile03" th:text="${service.image}"></label>
+                        <h5 style="color: red" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></h5>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                    <button type="submit" class="btn btn-primary display-4" style="float: left">Save</button>
+                    <a class="btn btn-light display-4" th:href="@{/services}" style="float: left">Cancel</a>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+    </div>
+</section>
+<th:block th:replace="index:: #footerAndScript"></th:block>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        let type = $('#inputServiceType').val();
+        if(type === '1') {
+            $('#standardBlock').hide();
+            $('#descriptionBlock').hide();
+            $('#poolAreaBlock').hide();
+            $('#floorBlock').hide();
+        } else if (type === '2') {
+            $('#poolAreaBlock').hide();
+            $('#standardBlock').show();
+            $('#descriptionBlock').show();
+            $('#floorBlock').show();
+        } else if (type === '3') {
+            $('#poolAreaBlock').show();
+            $('#standardBlock').show();
+            $('#descriptionBlock').show();
+            $('#floorBlock').show();
+        }
+    });
+
+    $('#inputServiceType').change(function () {
+        let type = $('#inputServiceType').val();
+        if(type === '1') {
+            $('#standardBlock').hide();
+            $('#descriptionBlock').hide();
+            $('#poolAreaBlock').hide();
+            $('#floorBlock').hide();
+        } else if (type === '2') {
+            $('#poolAreaBlock').hide();
+            $('#standardBlock').show();
+            $('#descriptionBlock').show();
+            $('#floorBlock').show();
+        } else if (type === '3') {
+            $('#poolAreaBlock').show();
+            $('#standardBlock').show();
+            $('#descriptionBlock').show();
+            $('#floorBlock').show();
+        }
+    })
+</script>
+</body>
+</html>

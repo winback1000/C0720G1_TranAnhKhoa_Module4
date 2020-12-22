@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index:: #header">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section th:replace="index:: #menu1-13"></section>
+
+<section class="section-table cid-sjjyT4ipnN mbr-parallax-background" id="table1-1g">
+    <th:block th:if="${successMessage}">
+        <h3 style="color: red" th:text="${successMessage}"></h3>
+    </th:block>
+  
+  <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(255, 255, 255);">
+  </div>
+  <div class="container container-table">
+      <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
+          Contract</h2>
+      
+      <div class="table-wrapper">
+        <div class="container">
+          <div class="row search">
+            <div class="col-md-8"></div>
+            <div class="col-md-8">
+                <div class="dataTables_filter">
+                    <form class="form-inline my-2 my-lg-0" style="float: left">
+                        <input class="form-control input-sm" type="search" placeholder="All Names" aria-label="Search" name="keyword">
+                        <button class="btn btn-success my-2 my-sm-0" type="submit" style="border-radius: 20px">Search</button>
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container scroll">
+          <table class="table isSearch" cellspacing="0" data-empty="No matching records found">
+            <thead>
+              <tr class="table-heads ">
+
+              <th class="head-item mbr-fonts-style display-8">Customer</th>
+                  <th class="head-item mbr-fonts-style display-8">Employee</th>
+                  <th class="head-item mbr-fonts-style display-8">Service</th>
+                  <th class="head-item mbr-fonts-style display-8">Start Date</th>
+                  <th class="head-item mbr-fonts-style display-8">End Date</th>
+                  <th class="head-item mbr-fonts-style display-8">Deposit($)</th>
+                  <th class="head-item mbr-fonts-style display-8">Other Service Quantity</th>
+                  <th class="head-item mbr-fonts-style display-8">Total Cost($)</th>
+                  <th class="head-item mbr-fonts-style display-12">Modify</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="contract : ${contractList}">
+              <td class="body-item mbr-fonts-style display-8" th:text="${contract.customer.name}"></td>
+                <td class="body-item mbr-fonts-style display-8" th:text="${contract.employee.name}"></td>
+                <td class="body-item mbr-fonts-style display-8" th:text="${contract.service.name}"></td>
+                <td class="body-item mbr-fonts-style display-8" th:text="${contract.startDate}"></td>
+                <td class="body-item mbr-fonts-style display-8" th:text="${contract.endDate}">2020-12-26</td>
+                <td class="body-item mbr-fonts-style display-8" th:text="${contract.deposit}"></td>
+                <td class="body-item mbr-fonts-style display-8" th:text="${contract.getAttachServiceQuantity()}"></td>
+                <td class="body-item mbr-fonts-style display-8" th:text="${contract.getTotalCost()}"></td>
+                <td class="body-item mbr-fonts-style display-12">
+                    <a class="btn btn-outline-warning" style="margin: 0 2px; width: 50px" th:href="@{/contracts/edit/{id}(id=${contract.getId()})}"><span class="mbrib-setting3 mbr-iconfont mbr-iconfont-btn"></span></a>
+                    <button style="margin: 0 5px; width: 50px" class="btn btn-outline-danger" th:data-id="${contract.getId()}" id="deleteButton" onclick="getInfo(this.getAttribute('data-id'))" data-toggle="modal" data-target="#deleteModal"><span class="mbrib-trash mbr-iconfont mbr-iconfont-btn"></span></button>
+                </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="container table-info-container">
+          <div class="row info">
+            <div class="col-md-8">
+              <div class="dataTables_info mbr-fonts-style display-7">
+                  <div style="background-color: transparent ; width: fit-content; border-radius: 4px;">
+                      <a class="btn btn-outline-success" th:href="@{'/contracts'(page=${contractList.number - 1}, keyword=${searchData})}" th:if="${contractList.hasPrevious()}">Previous</a>
+                      <span th:text="${contractList.number + 1}"></span>/<span th:text="${contractList.totalPages}"></span>
+                      <a class="btn btn-outline-success" th:href="@{'/contracts'(page=${contractList.number + 1}, keyword=${searchData})}" th:if="${contractList.hasNext()}">Next</a>
+                  </div>
+                  <a th:href="@{/contracts/add}" class="btn btn-primary display-7" style="float: left; margin: 10px">Add New Contract</a>
+              </div>
+            </div>
+            <div class="col-md-8"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="height: 400px">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/contracts/delete" method="get">
+                <input type="hidden" id="deleteID" name="deleteID">
+                <div class="modal-body">
+                    <h3>Please confirm for deleting the Contract</h3>
+                    <h2>ID: <input id="idContract" style="border: none" readonly></h2>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" style="margin-left: 20px">Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="index:: #footerAndScript"></th:block>
+
+<script th:inline="javascript">
+    function getInfo(id) {
+        $('#idContract').val(id);
+        $("#deleteID").val(id);
+    }
+    // $("#deleteButton").click(function (e) {
+    //     let id = $(this).attr('data-id');
+    //     $("#idContract").val(id);
+    //     $('#deleteModal').show();
+    // })
+</script>
+</body>
+</html>

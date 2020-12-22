@@ -1,0 +1,36 @@
+@RestController
+@RequestMapping("/apiStudent")
+public class StudentRestController {
+
+    @Autowired
+    private StudentService studentService;
+
+    @GetMapping("/list")
+    public ResponseEntity<List<Student>> getAllStudent() {
+
+        List<Student> studentList = this.studentService.findAll();
+
+        if (studentList.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(studentList, HttpStatus.OK);
+    }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Student> getDetailStudent(@PathVariable Integer id) throws Exception {
+        Student student = this.studentService.findById(id);
+
+        return new ResponseEntity<>(student, HttpStatus.OK);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Void> registerStudent(@RequestBody Student student, UriComponentsBuilder ucBuilder) {
+        this.studentService.save(student);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/apiStudent/detail/{id}").buildAndExpand(student.getId()).toUri());
+
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
+}

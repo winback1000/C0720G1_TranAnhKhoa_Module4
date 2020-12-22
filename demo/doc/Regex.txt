@@ -1,0 +1,7 @@
+HUMAN_NAME_CHECKING = "([A-Z]([a-z]*)*\\s)+[A-Z]([a-z])*$";
+DOB_CHECKING = "(\\d{1,2})[-](\\d{1,2})[-](\\d{4})";
+EMAIL_CHECKING = "^[\\w-.]+[\\w-.]*@([\\w-]+\\.)+[\\w-]{2,4}$";
+ID_CARD_CHECKING = "\\d{9}";
+PHONE_NUMBER =  @Pattern(regexp = "(090|091|\\(84\\)\\+90|\\(84\\)\\+91)\\d{7}", message = "The phone number must be started with 090, 091, (84)+90, (84)+91 and 7 digits")
+
+bindingResult.rejectValue("startDate", "error.contract", "Date can't be empty");

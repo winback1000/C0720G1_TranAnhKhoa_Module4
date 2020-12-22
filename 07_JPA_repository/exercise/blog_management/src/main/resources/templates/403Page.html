@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="layout:: head">
     <title>Access Denied</title>
 </head>
 
 <body>
+<nav th:replace="layout:: navbar"></nav>
 <!-- Include _menu.html -->
 <!--<th:block th:include="/_menu"></th:block>-->
 
@@ -13,5 +14,5 @@
 <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
 
 </body>
-
+<footer th:replace="layout:: footer"></footer>
 </html>

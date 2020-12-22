@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index:: #header"></head>
+
+<body>
+  
+<section th:replace="index:: #menu1-13"></section>
+
+<section class="features3 cid-sj4kV7n8Lv" id="features3-y">
+
+    <div class="mbr-overlay"></div>
+    <div class="container-fluid">
+        <th:block th:if="${successMessage}">
+            <h3 style="color: red" th:text="${successMessage}"></h3>
+        </th:block>
+        <div class="mbr-section-head">
+            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>All Employees of Furama</strong></h4>
+            <div style="margin: 10px">
+                <a th:href="@{/employees/add}" class="btn btn-primary display-7" style="float: left; margin: 0 10px 10px 0">Add New Employee</a>
+                <form class="form-inline my-2 my-lg-0" style="float: left">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-4" style="clear: both">
+            <th:block th:each="employee : ${employeePageList}">
+                <div class="item features-image сol-12 col-md-6 col-lg-3">
+                    <div class="item-wrapper">
+                        <div class="item-img">
+                            <img src="assets/images/mbr-1-1920x1280.jpg" alt="">
+                        </div>
+                        <div class="item-content">
+                            <h5 class="item-title mbr-fonts-style display-7"><strong th:text="${employee.name}"></strong></h5>
+                            <h6 class="item-subtitle mbr-fonts-style mt-1 display-7">
+                                <em th:text="${employee.getAccount().getName()}"></em>
+                            </h6>
+                        </div>
+                        <div class="mbr-section-btn item-footer mt-2">
+                            <a th:href="@{/employees/view/{id} (id = ${employee.id})}" class="btn btn-primary item-btn display-7" target="_blank"><span class="mbrib-italic mbr-iconfont mbr-iconfont-btn"></span></a>
+                            <a th:href="@{/employees/edit/{id} (id = ${employee.id})}" class="btn btn-warning item-btn display-7" target="_blank"><span class="mbrib-setting3 mbr-iconfont mbr-iconfont-btn"></span></a>
+                            <button class="btn btn-danger item-btn display-7" target="_blank" th:data-id="${employee.id}" th:data-name="${employee.getName()}" th:data-code="${employee.getEmployeeCode()}"
+                                    onclick="getInfo(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-code'))"
+                                    data-toggle="modal" data-target="#deleteModal"><span class="mbrib-trash mbr-iconfont mbr-iconfont-btn"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <div style="background-color: transparent ; width: fit-content; border-radius: 4px;">
+            <a class="btn btn-outline-success" th:href="@{'/employees'(page=${employeePageList.number - 1}, keyword=${searchData})}" th:if="${employeePageList.hasPrevious()}">Previous</a>
+            <span th:text="${employeePageList.number + 1}"></span>/<span th:text="${employeePageList.totalPages}"></span>
+            <a class="btn btn-outline-success" th:href="@{'/employees'(page=${employeePageList.number + 1}, keyword=${searchData})}" th:if="${employeePageList.hasNext()}">Next</a>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="height: 400px">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/employees/delete" method="get">
+                <input type="hidden" id="deleteID" name="deleteID">
+            <div class="modal-body">
+                <h3>Please confirm for deleting the employee</h3>
+                <h2>Name:  <input id="deleteName" style="border: none" readonly></h2>
+                <h2>ID:  <input id="employeeCode" style="border: none" readonly></h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" style="margin-left: 20px">Confirm</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<th:block th:replace="index:: #footerAndScript"></th:block>
+<script th:inline="javascript">
+    function getInfo(id, name, code) {
+        // document.getElementById("deleteID").value = id;
+        // document.getElementById("deleteName").value = name;
+        // document.getElementById("employeeCode").value = code;
+        $("#deleteID").val(id);
+        $("#deleteName").val(name);
+        $("#employeeCode").val(code);
+    }
+</script>
+  
+</body>
+</html>
